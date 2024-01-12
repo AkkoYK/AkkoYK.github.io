@@ -15,8 +15,8 @@
         <div class="slide">
             <h2>关于「小帮手」</h2>
             <p>此处为「小帮手」，会展示关键信息</p>
-            <p>请务必一定要MUST好好看~</p>
-            <p>咱会一路带着你走哒~</p>
+            <p>请务必一定要MUST好好看这里的文字</p>
+            <div id="user" class="copyContainer">数据获取中...</div>
             <p>了解后，就点击下一步吧！</p>
         </div>
         <div class="slide">
@@ -46,14 +46,17 @@
         </div>
         <div class="slide">
             <h2>标题</h2>
-            <p>接下来往下滑，找到“标题”一栏</p>
             <div id="reporttitle" class="copyContainer" onclick="copyText(this)">Ai生成中...</div>
+            <p>↑ 点击可复制 ↑</p>
+            <p>接下来往下滑，找到“标题”一栏</p>
+            <p>并手动填入提供的标题</p>
         </div>
         <div class="slide">
             <h2>信件内容</h2>
-            <p>到“信件内容”了，就在标题的下面</p>
             <div id="reportcontent" class="copyContainer" onclick="copyText(this)">Ai生成中...</div>
-            <p>//取自公开通缉人员的公开信息//</p>
+            <p>↑ 点击可复制 ↑</p>
+            <p>到“信件内容”了，就在标题的下面</p>
+            <p>请手动填入提供的信件内容</p>
         </div>
         <div class="slide">
             <h2>是否公开</h2>
@@ -77,11 +80,13 @@
             <p>这是最后一步啦！</p>
             <p>就在验证码一栏的右下角哦</p>
             <p>点击那蓝色的“提交”按钮提交吧！</p>
+            <p>提交后，就请点击粉色的“我已提交！”吧！</p>
         </div>
         <!-- 添加更多轮播信息... -->
     </div>
     <button id="prevBtn" onclick="prevSlide()">&#10094;</button>
     <button id="nextBtn" onclick="nextSlide()">下一步 &#10095;</button>
+    <button id="finishBtn" onclick="recordUser()">我已提交！</button>
 </div>
 
 <div id="iframe-container">

@@ -61,6 +61,23 @@ h2 {
     transition: background-color 0.3s ease;
 }
 
+#finishBtn {
+    right: 0%;
+    width: 60%;
+    color: #ffffff;
+    background-color: #ff4a98;
+    border: none;
+    /* padding-inline: 15%; */
+    padding-bottom: 5px;
+    position: absolute;
+    top: 90%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: none;
+}
+
 #prevBtn:hover {
     background-color: #979797; /* 鼠标悬停时的颜色 */
 }
@@ -99,6 +116,8 @@ iframe {
     cursor: pointer;
     user-select: none; /* 防止文本被选中 */
     max-width: 80%;
+    overflow: auto;
+    max-height: 20%;
 }
 
 /* 添加闪烁动画效果 */

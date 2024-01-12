@@ -23,17 +23,21 @@ function showSlide(index) {
         // 控制按钮的显示和隐藏
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const finishBtn = document.getElementById('finishBtn');
 
         if (currentSlide === 0) {
             prevBtn.style.display = 'none';
+            postUser();
         } else {
             prevBtn.style.display = 'block';
         }
 
         if (currentSlide === slides.length - 1) {
             nextBtn.style.display = 'none';
+            finishBtn.style.display = 'block';
         } else {
             nextBtn.style.display = 'block';
+            finishBtn.style.display = 'none';
         }
 
         // 添加/移除闪烁效果的class
@@ -51,6 +55,12 @@ function nextSlide() {
 // 只有在切换到第三页时进行GET请求
 if (currentSlide === 2) {
     fetchData();
+}
+if (currentSlide === 5) {
+    fetchGPTtitleAndReplace();
+}
+if (currentSlide === 6) {
+    fetchGPTcontentAndReplace();
 }
 }
 
@@ -108,7 +118,7 @@ async function fetchGPTtitleAndReplace() {
                 model: "gpt-3.5-turbo-1106",
                 messages: [
                     { role: "system", content: "你是一个乐于助人的助理。" },
-                    { role: "user", content: "替换为你的用户输入。" } // 请替换为你的实际用户输入
+                    { role: "user", content: "我要举报一所学校，请帮我改写一个举报标题，要求内容严谨，语义不能发生改变，不能产生歧义，且仅回复我改写后的内容而不要加任何提示语。以下为待改写的标题：昆明市第一中学西山学校违规强制收费补课" } // 请替换为你的实际用户输入
                 ]
             })
         });
@@ -141,7 +151,7 @@ async function fetchGPTcontentAndReplace() {
                 model: "gpt-3.5-turbo-1106",
                 messages: [
                     { role: "system", content: "你是一个乐于助人的助理。" },
-                    { role: "user", content: "替换为你的用户输入。" } // 请替换为你的实际用户输入
+                    { role: "user", content: "我要举报一所学校，请帮我改写一个举报正文，要求内容严谨，语义不能发生改变，不能产生歧义，且仅回复我改写后的内容而不要加任何提示语。以下为待改写的正文：尊敬的昆明教体局领导们，您们好！假期即将到来，作为昆明市第一中学西山学校的一名高二年级的学生，居然被学校违规收费强制补课，要求我们在学业水平考试结束后继续补一周课，将放假时间延后至1月28号，这严重损害了莘莘学子的合法权益，还扰乱了我们家庭的日程安排，更不符合双减“政策”的要求！在此，请求各位领导叔叔阿姨们，为了祖国的花朵们，尽快严肃处理这件事。"}
                 ]
             })
         });
@@ -160,4 +170,37 @@ async function fetchGPTcontentAndReplace() {
     } catch (error) {
         console.error("There was an error fetching the GPT response:", error);
     }
+}
+
+
+//参与统计
+function recordUser() {
+    // 增加1名参与人数
+    fetch('https://killyx.onrender.com/increase', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}), // 可以传递任意数据，因为在服务器端我们只关心请求的方法
+    })
+        .then(response => response.json())
+        .then(data => {
+        console.log('增加1名参与人数后的总人数：', data.count);
+        document.getElementById('finishBtn').remove();
+        alert("恭喜！你是第" + data.count + "个完成的小伙伴！由衷感谢你为我们每个人的假期做出的贡献！现在，你可以关掉此页面了。");
+        })
+        .catch(error => console.error('增加参与人数失败：', error));
+
+}
+
+function postUser() {
+    // 获取已参与的人数
+    fetch('https://killyx.onrender.com/participation')
+    .then(response => response.json())
+    .then(data => {
+    console.log('已参与的人数：', data.count);
+    const nameElement = document.getElementById('user');
+    nameElement.innerText = "已有 " + data.count + " 人在咱的指导下成功了哦~";    
+    })
+    .catch(error => console.error('获取已参与人数失败：', error));
 }
